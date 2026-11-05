@@ -1,0 +1,10 @@
+{
+  "prettier.semi": true,
+  "prettier.requirePragma": false,
+  "prettier.resolveGlobalModules": false,
+  "prettier.useEditorConfig": true,
+  "prettier.htmlWhitespaceSensitivity": "css",
+  "prettier.trailingComma": "es5",
+  "prettier.endOfLine": "lf",
+  "files.autoSave": "off"
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, minimal-ui">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+	<link rel="apple-touch-startup-image" href="images/apple-touch-startup-image-640x920.png">
+	<title>Simpatik</title>
+	<link rel="stylesheet" href="css/framework7.css">
+	<link rel="stylesheet" href="style.css">
+	<link type="text/css" rel="stylesheet" href="css/swipebox.css" />
+	<link type="text/css" rel="stylesheet" href="css/animations.css" />
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,900" rel="stylesheet">
+</head>
+
+<body id="mobile_wrap">
+
+	<div class="statusbar-overlay"></div>
+
+	<div class="panel-overlay"></div>
+
+	<div class="panel panel-left panel-reveal">
+		<div class="view view-subnav">
+			<div class="pages">
+				<div data-page="panel-leftmenu" class="page pagepanel">
+					<div class="page-content">
+						<nav class="main_nav_icons_inline_3">
+							<ul>
+								<li><a href="index.html" class="close-panel" data-view=".view-main"><img
+											src="images/icons/black/home.png" alt="" title="" /><span>Home</span></a>
+								</li>
+								<li><a href="prod.html" class="close-panel" data-view=".view-main"><img
+											src="images/icons/black/produksi.png" alt=""
+											title="" /><span>Produksi</span></a></li>
+								<li><a href="gis.html" class="close-panel" data-view=".view-main"><img
+											src="images/icons/black/gis.png" alt="" title="" /><span>GIS</span></a></li>
+								<li><a href="javascript:void(0);"
+										onclick="window.location.href='http://dash.tirtakepri.co.id:81/pages-login.html';"><img
+											src="images/icons/black/evkin.png" alt="" title="" /><span>Evaluasi
+											Kinerja</span></a></li>
+								<li><a href="dist.html" class="close-panel" data-view=".view-main"><img
+											src="images/icons/black/distribusi.png" alt="" title="" /><span>Jaringan
+											Distribusi</span></a></li>
+								<li><a href="dma.html" class="close-panel" data-view=".view-main"><img
+											src="images/icons/black/dma.png" alt="" title="" /><span>Distrik Meter
+											Area</span></a></li>
+								<li><a href="pelanggan.html" class="close-panel" data-view=".view-main"><img
+											src="images/icons/black/info.png" alt="" title="" /><span>Info
+											Pelanggan</span></a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="views">
+
+		<div class="view view-main">
+
+
+
+			<div class="pages">
+
+				<div data-page="index" class="page homepage">
+					<div class="page-content">
+						<div class="navbarpages">
+							<div class="navbar_center">
+								<br></br>
+								<img src="images/logo3x3.png" width="240" height="240">
+							</div>
+							<div class="navbar_right navbar_right_menu">
+								<a href="#" data-panel="left" class="open-panel"><img src="images/icons/white/menu.png"
+										alt="" title="" /></a>
+							</div>
+						</div>
+						<!-- Slider -->
+						<div class="swiper-container slidertoolbar swiper-init" data-effect="slide" data-parallax="true"
+							data-pagination=".swiper-pagination" data-next-button=".swiper-button-next"
+							data-prev-button=".swiper-button-prev">
+							<div class="swiper-wrapper">
+								<div class="swiper-slide" style="background-image:url(images/slide1.jpg);">
+									<div class="slider_trans">
+										<div class="slider-caption">
+											<h2 data-swiper-parallax="-100%"></h2>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-container-toolbar swiper-toolbar swiper-init" data-effect="slide"
+						data-slides-per-view="1" data-slides-per-group="1" data-space-between="0"
+						data-pagination=".swiper-pagination-toolbar">
+						<div class="swiper-pagination-toolbar"></div>
+						<div class="swiper-wrapper">
+							<div class="swiper-slide toolbar-icon">
+								<a href="prod.html" data-popup="view-main"><img src="images/icons/black/produksi.png"
+										alt="" title="" /><span>Produksi</span></a>
+								<a href="gis.html" data-popup=".popup-social" class="open-popup"><img
+										src="images/icons/black/gis.png" alt="" title="" /><span>GIS</span></a>
+								<a href="javascript:void(0);"
+									onclick="window.location.href='http://dash.tirtakepri.co.id:81/pages-login.html';"><img
+										src="images/icons/black/evkin.png" alt="" title="" /><span>Evaluasi
+										Kinerja</span></a>
+								<a href="dist.html" data-popup="view-main"><img src="images/icons/black/distribusi.png"
+										alt="" title="" /><span>Jaringan Distribusi</span></a>
+								<a href="dma.html" data-popup="view-main"><img src="images/icons/black/dma.png" alt=""
+										title="" /><span>Distrik Meter Area</span></a>
+								<a href="pelanggan.html" data-popup="view-main"><img src="images/icons/black/info.png"
+										alt="" title="" /><span>Info Pelanggan</span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<script src="js/jquery-1.10.1.min.js"></script>
+	<script src="js/jquery.validate.min.js"></script>
+	<script src="js/framework7.js"></script>
+	<script src="js/jquery.swipebox.js"></script>
+	<script src="js/jquery.fitvids.js"></script>
+	<script src="js/email.js"></script>
+	<script src="js/audio.min.js"></script>
+	<script src="js/my-app.js"></script>
+</body>
+
+</html>

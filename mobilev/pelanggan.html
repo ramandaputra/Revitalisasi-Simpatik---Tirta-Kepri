@@ -1,0 +1,44 @@
+<div class="pages">
+  <div data-page="blog" class="page no-toolbar no-navbar">
+    <div class="page-content">
+      <div class="navbarpages navbarpagesbg">
+        <div class="navbar_left">
+          <div class="logo_text"><a href="index.html">Pelanggan</a></div>
+        </div>
+        <div class="navbar_right navbar_right_menu">
+          <a href="#" data-panel="left" class="open-panel"><img src="images/icons/white/menu.png" alt="" title="" /></a>
+        </div>
+        <style type="text/css">
+          .container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 100%;
+            /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+          }
+
+          /* Then style the iframe to fit in the container div with full height and width */
+          .responsive-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+          }
+
+          /* Media query for responsive iframe */
+          @media (max-width: 767px) {
+            .container {
+              padding-top: 180%;
+              /* Adjust the aspect ratio for smaller screens if needed */
+            }
+          }
+        </style>
+
+        <div class="container">
+          <iframe class="responsive-iframe" src="pelanggan/" style="overflow: auto;"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

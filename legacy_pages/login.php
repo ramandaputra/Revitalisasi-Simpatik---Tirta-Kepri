@@ -1,0 +1,164 @@
+<?php
+session_start();
+
+// Konfigurasi database
+$servername = "192.168.0.15:3309";
+$username = "root"; // sesuaikan dengan username database Anda
+$password = "Pusimp3l#1717#"; // sesuaikan dengan password database Anda
+$dbname = "kepri_kinerja";
+
+// Membuat koneksi ke database
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Memeriksa koneksi
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nik = $_POST['nik'];
+    $password = $_POST['password'];
+
+    // Melindungi dari SQL Injection
+    $nik = mysqli_real_escape_string($conn, $nik);
+    $password = md5(mysqli_real_escape_string($conn, $password)); // Gunakan hashing yang lebih aman di produksi
+
+    // Mengecek kredensial
+    $sql = "SELECT * FROM users WHERE nik = '$nik' AND password = '$password'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        // Menyimpan informasi pengguna dalam sesi
+        $_SESSION['user_id'] = $row['id'];
+        $_SESSION['nik'] = $row['nik'];
+        $_SESSION['nama'] = $row['nama'];
+        $_SESSION['lvl'] = $row['lvl'];
+
+        // Mengarahkan ke halaman dashboard
+        header("Location: index.php");
+        exit();
+    } else {
+        $error = "NIK atau password salah.";
+    }
+}
+
+$conn->close();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SIMPATIK - Login</title>
+    <meta name="description" content="Perumda Air Minum Tirta Kepri">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Google Fonts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+    <script>
+        WebFont.load({
+            google: {
+                "families": ["Montserrat:400,500,600,700", "Noto+Sans:400,700"]
+            },
+            active: function() {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="assets/vendors/css/base/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/vendors/css/base/elisyam-1.5.min.css">
+</head>
+
+<body class="bg-white">
+    <!-- Begin Preloader -->
+    <div id="preloader">
+        <div class="canvas">
+            <img src="assets/img/logo2.png" alt="logo" class="loader-logo">
+            <div class="spinner"></div>
+        </div>
+    </div>
+    <!-- End Preloader -->
+    <!-- Begin Container -->
+    <div class="container-fluid no-padding h-100">
+        <div class="row flex-row h-100 bg-white">
+            <!-- Begin Left Content -->
+            <div class="col-xl-8 col-lg-6 col-md-5 no-padding">
+                <div class="elisyam-bg background-01">
+                    <div class="elisyam-overlay overlay-01"></div>
+                    <div class="authentication-col-content mx-auto">
+                        <h1 class="gradient-text-01">
+                            Welcome To SIMPATIK
+                        </h1>
+                        <span class="description">
+                            Sistem Informasi Perumda Air Minum Tirta Kepri.
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- End Left Content -->
+            <!-- Begin Right Content -->
+            <div class="col-xl-4 col-lg-6 col-md-7 my-auto no-padding">
+                <!-- Begin Form -->
+                <div class="authentication-form mx-auto">
+                    <div class="logo-centered">
+                        <a href="db-default.html">
+                            <img src="assets/img/logo2.png" alt="logo">
+                        </a>
+                    </div>
+                    <h3>Login</h3>
+                    <?php if (isset($error)) : ?>
+                        <div class="alert alert-danger"><?php echo $error; ?></div>
+                    <?php endif; ?>
+                    <form method="post" action="login.php">
+                        <div class="group material-input">
+                            <input type="text" name="nik" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>NIK</label>
+                        </div>
+                        <div class="group material-input">
+                            <input type="password" name="password" required>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Password</label>
+                        </div>
+                        <div class="row">
+                            <div class="col text-left">
+                                <div class="styled-checkbox">
+                                    <input type="checkbox" name="remember" id="remember">
+                                    <label for="remember">Remember me</label>
+                                </div>
+                            </div>
+                            <div class="col text-right">
+                                <a href="pages-forgot-password.html">Forgot Password ?</a>
+                            </div>
+                        </div>
+                        <div class="sign-btn text-center">
+                            <button type="submit" class="btn btn-lg btn-gradient-01">Sign in</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- End Form -->
+            </div>
+            <!-- End Right Content -->
+        </div>
+        <!-- End Row -->
+    </div>
+    <!-- End Container -->
+    <!-- Begin Vendor Js -->
+    <script src="assets/vendors/js/base/jquery.min.js"></script>
+    <script src="assets/vendors/js/base/core.min.js"></script>
+    <!-- End Vendor Js -->
+    <!-- Begin Page Vendor Js -->
+    <script src="assets/vendors/js/app/app.min.js"></script>
+    <!-- End Page Vendor Js -->
+</body>
+
+</html>

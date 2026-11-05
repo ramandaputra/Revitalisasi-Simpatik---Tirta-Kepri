@@ -1,0 +1,274 @@
+<div class="pages">
+  <div data-page="tabs" class="page no-toolbar no-navbar">
+    <div class="page-content">
+    
+	<div class="navbarpages navbarpagesbg">
+                            <div class="navbar_left">
+                                <div class="logo_text"><a href="index.html">DASHBOARD</a></div>
+                            </div>		
+	</div>
+    <php
+     <div id="pages_maincontent">
+      
+          <h2 class="page_title">Nama Sensor</h2>
+          
+          
+     <div class="page_single layout_fullwidth_padding">
+          
+              <div class="buttons-row">
+                    <a href="#tab1" class="tab-link active button">Panel</a>
+                    <a href="#tab2" class="tab-link button">Grafik</a>
+              </div>
+              
+              <div class="tabs-animated-wrap">
+                    <div class="tabs">
+                          <div id="tab1" class="tab active">
+                                <h4>Tab one content</h4>
+                                <div id="linechart" data-highcharts-chart="0">
+                                    <div class="highcharts-container" id="highcharts-0" style="position: relative; overflow: hidden; width: 770px; height: 400px; text-align: left; line-height: normal; z-index: 0; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></div>
+                                </div>
+                          </div>
+    
+                          <div id="tab2" class="tab">
+                                <h4>Tab two content</h4>
+                                <div id="gaugetemp" data-highcharts-chart="1">
+                                    <div class="highcharts-container" id="highcharts-4" style="position: relative; overflow: hidden; width: 370px; height: 400px; text-align: left; line-height: normal; z-index: 0; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></div>
+                                </div>
+                          </div> 
+                         
+                          <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+                          <script src="./bootsrap/js/bootstrap.min.js"></script>
+                          <script src="./js/highcharts.js"></script>
+                          <script src="./js/highcharts-more.js"></script>
+                          <script src="./js/exporting.js"></script>
+                          <script src="https://code.highcharts.com/modules/solid-gauge.src.js"></script>
+                      
+                          <!--/.request data -->
+                          <script type="text/javascript">
+                              var chart;
+                      
+                              function requestData() {
+                                  $.ajax({
+                                      url: 'data.php',
+                                      dataType: 'json',
+                                      success: function(data) {
+                                          $.each(data, function(i, item) {
+                                              var x = item.x,
+                                                  y = item.y;
+                                              var series = chart.series[0];
+                                              series.addPoint([x, y], true, true);
+                                          });
+                                          setTimeout(requestData, 60000); //1000=1dtk 60000=1mnt  3600000=1jam
+                                      },
+                                      cache: false
+                                  });
+                              }
+                          </script>
+                      
+                          <!--/.linechart -->
+                          <script type="text/javascript">
+                              $(document).ready(function() {
+                                  chart = new Highcharts.Chart({
+                                      chart: {
+                                          marginLeft: 55,
+                                          renderTo: 'linechart',
+                                          defaultSeriesType: 'spline',
+                                          events: {
+                                              load: requestData
+                                          }
+                                      },
+                                      title: {
+                                          text: 'Grafik xx /menit'
+                                      },
+                                      xAxis: {
+                                          type: 'datetime',
+                                          tickPixelInterval: 150,
+                                          maxZoom: 20 * 10000
+                      
+                                      },
+                                      yAxis: {
+                                          minPadding: 0.2,
+                                          maxPadding: 0.2,
+                                          // tickInterval: 14,
+                                          title: {
+                                              text: 'Pressure',
+                                              margin: 7
+                                          }
+                                      },
+                                      series: [{
+                                          name: 'Sensor',
+                                          data: (function() {
+                                              var data = [];
+                                              var json = (function() {
+                                                  var json = null;
+                                                  $.ajax({
+                                                      'async': false,
+                                                      'global': false,
+                                                      url: 'data.php',
+                                                      'dataType': "text",
+                                                      'success': function(data) {
+                                                          json = data;
+                                                      }
+                                                  });
+                                                  return json;
+                                              })();
+                                              output = eval('(' + json + ')');
+                                              //output = json;
+                                              $.each(output, function(i, item) {
+                                                  data.push({
+                                                      x: output[i].x,
+                                                      y: output[i].y
+                                                  });
+                                              })
+                                              return data;
+                                          }())
+                                      }]
+                                  });
+                              });
+                          </script>
+                      
+                      
+                          <!--  Gauge meter -->
+                          <script type="text/javascript">
+                              $(function() {
+                      
+                                  $('#gaugetemp').highcharts({
+                      
+                                          chart: {
+                                              type: 'gauge',
+                                              plotBackgroundColor: null,
+                                              plotBackgroundImage: null,
+                                              plotBorderWidth: 0,
+                                              plotShadow: false
+                                          },
+                      
+                                          title: {
+                                              text: 'Pressure Meter'
+                                          },
+                      
+                                          pane: {
+                                              startAngle: -150,
+                                              endAngle: 150,
+                                              background: [{
+                                                  backgroundColor: {
+                                                      linearGradient: {
+                                                          x1: 0,
+                                                          y1: 0,
+                                                          x2: 0,
+                                                          y2: 1
+                                                      },
+                                                      stops: [
+                                                          [0, '#FFF'],
+                                                          [1, '#333']
+                                                      ]
+                                                  },
+                                                  borderWidth: 0,
+                                                  outerRadius: '109%'
+                                              }, {
+                                                  backgroundColor: {
+                                                      linearGradient: {
+                                                          x1: 0,
+                                                          y1: 0,
+                                                          x2: 0,
+                                                          y2: 1
+                                                      },
+                                                      stops: [
+                                                          [0, '#333'],
+                                                          [1, '#FFF']
+                                                      ]
+                                                  },
+                                                  borderWidth: 1,
+                                                  outerRadius: '107%'
+                                              }, {
+                                                  // default background
+                                              }, {
+                                                  backgroundColor: '#DDD',
+                                                  borderWidth: 0,
+                                                  outerRadius: '105%',
+                                                  innerRadius: '103%'
+                                              }]
+                                          },
+                      
+                                          // the value axis
+                                          yAxis: {
+                                              min: 0,
+                                              max: 14.00,
+                      
+                                              minorTickInterval: 'auto',
+                                              minorTickWidth: 1,
+                                              minorTickLength: 10,
+                                              minorTickPosition: 'inside',
+                                              minorTickColor: '#666',
+                      
+                                              tickPixelInterval: 30,
+                                              tickWidth: 2,
+                                              tickPosition: 'inside',
+                                              tickLength: 10,
+                                              tickColor: '#666',
+                                              labels: {
+                                                  step: 2,
+                                                  rotation: 'auto'
+                                              },
+                                              title: {
+                                                  text: 'Pressure'
+                                              },
+                                              plotBands: [{
+                                                  from: 0,
+                                                  to: 6.50,
+                                                  color: '#DDDF0D' // yellow
+                                              }, {
+                                                  from: 6.50,
+                                                  to: 9.0,
+                                                  color: '#55BF3B' // green
+                                              }, {
+                                                  from: 9.0,
+                                                  to: 14,
+                                                  color: '#DF5353' // red
+                                              }]
+                                          },
+                      
+                                          series: [{
+                                              name: 'Sensor',
+                                              data: [0],
+                                              tooltip: {
+                                                  valueSuffix: 'Pressure'
+                                              }
+                                          }]
+                      
+                                      },
+                                      // realtime data dari database ;
+                                      function(chart) {
+                                          if (!chart.renderer.forExport) {
+                                              setInterval(function() {
+                                                  $.ajax({
+                                                      url: "data2.php",
+                                                      data: 'pressure',
+                                                      type: 'get',
+                                                      dataType: "json",
+                                                      cache: false,
+                                                      success: function(data) {
+                                                          var pressure = parseFloat(data);
+                                                          var chart = $('#gaugetemp').highcharts();
+                                                          chart.series[0].points[0].update(pressure);
+                                                      }
+                                                  });
+                                              }, 2000);
+                                          }
+                                      });
+                      
+                              });
+                          </script>
+
+                    </div>
+              </div>
+
+          
+          </div>     
+          
+          
+      </div>
+      
+      
+    </div>
+  </div>
+</div>
